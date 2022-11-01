@@ -330,7 +330,6 @@ def A_star(m, n, k):
     solutions = defaultdict(list)
     costs = {}
 
-
     q = queue.Queue()
     state = initialize(m, n)
     q.put(state)
