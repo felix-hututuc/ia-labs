@@ -1,5 +1,3 @@
-from numpy import argmax
-
 class Player:
     def __init__(self, name, moves) -> None:
         self.name = name
@@ -40,16 +38,11 @@ def compute_best_response(game: Game):
     best_responses = {}
     for i in range(len(game.player2.moves)):
         best_outcome = max([game.points[j][i][0] for j in range(len(game.player1.moves))])
-        best_responses[game.player2.moves[i]] = []
-        for j in range(len(game.player1.moves)):
-            if game.points[j][i][0] == best_outcome:
-                best_responses[game.player2.moves[i]].append(game.player1.moves[j])
-    for i in range(len(game.player1.moves)):
+        best_responses[game.player2.moves[i]] = [game.player1.moves[j] for j in range(len(game.player1.moves)) if
+                                                 game.points[j][i][0] == best_outcome]
         best_outcome = max([game.points[i][j][1] for j in range(len(game.player2.moves))])
-        best_responses[game.player1.moves[i]] = []
-        for j in range(len(game.player2.moves)):
-            if game.points[i][j][1] == best_outcome:
-                best_responses[game.player1.moves[i]].append(game.player2.moves[j])
+        best_responses[game.player1.moves[i]] = [game.player2.moves[j] for j in range(len(game.player2.moves)) if
+                                                 game.points[i][j][1] == best_outcome]
     return best_responses
 
 
